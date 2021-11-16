@@ -60,6 +60,19 @@ fetch(url)
 
 
 let weatherNow = document.querySelector('.weathe-btn__info');
+let weatherPrev = document.querySelector('.weathe-btn__prev');
+let weatherNext = document.querySelector('.weathe-btn__next');
+let clear = document.querySelector('.clear');
+let topBar = document.querySelector('.app-top-bar');
+let content = document.querySelector('.app-content');
+let couner = 0;
+
+
+clear.addEventListener('click', ()=> {
+topBar.innerHTML = '';
+content.innerHTML = '';
+})
+
 
 
 fetch('http://api.openweathermap.org/data/2.5/forecast?id=706483&appid=7501295286a1dda1338ea7f343999a0c')
@@ -67,7 +80,18 @@ fetch('http://api.openweathermap.org/data/2.5/forecast?id=706483&appid=750129528
     .then(function (data) {
      
         console.log(data);
-        
+
+        weatherNext.addEventListener('click', next) 
+        function next(){
+        if(couner !== 39){
+        couner++;
+       console.log(data.list[couner].dt_txt) 
+       weatherNow.innerHTML = data.list[couner].dt_txt
+        } else {
+        return false;
+        }
+        console.log(couner)
+        }
         weatherNow.innerHTML = data.list[0].dt_txt
     })
     .catch(function () {
