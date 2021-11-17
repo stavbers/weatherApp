@@ -40,6 +40,9 @@ body {
         flex-direction: row;
    }
 }
+.hide {
+    display: none!important;
+}
 .app-container {
     background-color: var(--bg-color);
     border-radius: 40px;

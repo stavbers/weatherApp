@@ -41,7 +41,7 @@ fetch(url)
     .then(function (data) {
         console.log(data);
        
-        let nowTemp = (data.main.temp - 273).toFixed(1);
+        let nowTemp = (data.main.temp - 273.15).toFixed(1);
         y(nowTemp, temp);
         temp.innerHTML = nowTemp + '&deg;';
         
@@ -63,14 +63,14 @@ let weatherNow = document.querySelector('.weathe-btn__info');
 let weatherPrev = document.querySelector('.weathe-btn__prev');
 let weatherNext = document.querySelector('.weathe-btn__next');
 let clear = document.querySelector('.clear');
-let topBar = document.querySelector('.app-top-bar');
-let content = document.querySelector('.app-content');
+let itm = document.querySelectorAll('.itm');
 let couner = 0;
 
 
 clear.addEventListener('click', ()=> {
-topBar.innerHTML = '';
-content.innerHTML = '';
+    itm.forEach((item) => {
+        item.classList.add('hide');
+    })
 })
 
 
@@ -85,12 +85,31 @@ fetch('http://api.openweathermap.org/data/2.5/forecast?id=706483&appid=750129528
         function next(){
         if(couner !== 39){
         couner++;
-       console.log(data.list[couner].dt_txt) 
-       weatherNow.innerHTML = data.list[couner].dt_txt
+    //    console.log(data.list[couner].dt_txt);
+       let abc = data.list[couner].dt_txt;
+       let month;
+       let day;
+       let time;
+
+    abc = abc.split(""); // получение массива чисел даты
+    // abc.splice(0, 5);
+    month = abc.slice(5, 7).join(''); // получение месяца
+    day = abc.slice(8, 10).join('');
+    time = abc.slice(11, 16).join('');
+    console.log(abc)
+    console.log(month)
+    console.log(day)
+    console.log(time)
+
+       weatherNow.innerHTML = data.list[couner].dt_txt;
+       
+
+
+    //    console.log(weatherNow.split("-"))
         } else {
         return false;
         }
-        console.log(couner)
+        // console.log(couner)
         }
         weatherNow.innerHTML = data.list[0].dt_txt
     })

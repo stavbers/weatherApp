@@ -1,5 +1,26 @@
 let town = {
     'Kharkiv': 706483,
     "Kharkivs’ka Oblast’": 706482,
-    "Odessa": 698740
+    "Sevastopol":694423,
+    "Misto Kyyiv": 703447,
+    "Kyiv Oblast":703446,
+    "Odessa": 698740,
+    "Cherkasy": 710791,
+    "Chernihiv":710735,
+    "Chernivtsi": 710741,
+    "Dnipro":709930,
+    "Ivano-Frankivsk":707471,
+    "Kherson":706448,
+    "Khmelnytsk":706448,
+    "Kirovohrad":705811,
+    "Lviv":702550,
+    "Mykolaiv":700568,
+    "Poltava":696643,
+    "Rivne":7046809,
+    "Sumy":692194,
+    "Ternopil":691650,
+    "Vinnytsia": 689558,
+    "Lutsk":702569,
+    "Zaporizhia":687700,
+    "Zhytomyr":686967
 };
