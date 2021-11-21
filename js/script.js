@@ -1,4 +1,4 @@
-let temp = document.querySelector('.button-dial-label span');
+let temp = document.querySelector('.button-dial-label__temp');
 let select = document.querySelector('.inp');
 let selectOpt;
 let city = town["Kharkivs’ka Oblast’"];
@@ -43,7 +43,7 @@ fetch(url)
        
         let nowTemp = (data.main.temp - 273.15).toFixed(1);
         y(nowTemp, temp);
-        temp.innerHTML = nowTemp + '&deg;';
+        temp.innerHTML = "Сейчас " + nowTemp + '&deg;';
         
         // document.querySelector('.package-name').textContent = data.name;
         // document.querySelector('.price').innerHTML = Math.round(data.main.temp - 273) + '&deg;';
@@ -63,15 +63,18 @@ let weatherNow = document.querySelector('.weathe-btn__info');
 let weatherPrev = document.querySelector('.weathe-btn__prev');
 let weatherNext = document.querySelector('.weathe-btn__next');
 let clear = document.querySelector('.clear');
-let itm = document.querySelectorAll('.itm');
+let appContainer = document.querySelector('.app-container');
+let itm = document.querySelectorAll('.itm > *');
 let couner = 0;
 
+console.log(appContainer)
 
 clear.addEventListener('click', ()=> {
     itm.forEach((item) => {
         item.classList.add('hide');
-    })
-})
+    });
+    createBlock('div', appContainer)
+});
 
 
 
@@ -86,35 +89,54 @@ fetch('http://api.openweathermap.org/data/2.5/forecast?id=706483&appid=750129528
         if(couner !== 39){
         couner++;
     //    console.log(data.list[couner].dt_txt);
-       let abc = data.list[couner].dt_txt;
-       let month;
+       let abc = (data.list[couner].dt_txt).split("");
+       let month; // получение месяца
        let day;
        let time;
 
-    abc = abc.split(""); // получение массива чисел даты
-    // abc.splice(0, 5);
-    month = abc.slice(5, 7).join(''); // получение месяца
+    // abc = abc.split(""); // получение массива чисел даты
+    month = abc.slice(5, 7).join(''); 
     day = abc.slice(8, 10).join('');
     time = abc.slice(11, 16).join('');
-    console.log(abc)
-    console.log(month)
-    console.log(day)
-    console.log(time)
+    
+console.log( month, day, time)
+   
 
        weatherNow.innerHTML = data.list[couner].dt_txt;
        
 
-
-    //    console.log(weatherNow.split("-"))
         } else {
         return false;
         }
-        // console.log(couner)
+
         }
         weatherNow.innerHTML = data.list[0].dt_txt
+        
     })
     .catch(function () {
         console.log('error')
     });
 
     // weatherNow.innerHTML = data.list[0].dt_txt
+    function createBlock(elem, container){
+        let infoDiv = document.createElement(elem);
+        infoDiv.classList.add('button');
+        infoDiv.innerHTML =  
+        ' <div class="button button-small">\n' +
+        '<i class="fas fa-chevron-right"></i>\n' + 
+        '</div>'
+        container.append(infoDiv);
+    };
+
+
+    let openWeather = document.querySelector('.button-btn');
+    let weatherDop = document.querySelector('.weather-down');
+    openWeather.addEventListener('click', ()=> {
+        if(weatherDop.classList.contains('open')){
+            weatherDop.classList.add('hide');
+            weatherDop.classList.remove('open');
+           } else {
+            weatherDop.classList.add('open');
+           }
+    });
+  

@@ -22,6 +22,9 @@ html {
 body {
     background-color: #f2f2f2;
 }
+p {
+    margin: 0;
+}
 .color-cool {
     color: #077dfe;
 }
@@ -42,6 +45,9 @@ body {
 }
 .hide {
     display: none!important;
+}
+.open {
+    display: flex!important;
 }
 .app-container {
     background-color: var(--bg-color);
@@ -99,8 +105,8 @@ button:focus {
     color: #6d6e74;
     font-size: 22px;
     line-height: 40px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 .button.button-large {
     display: flex;
@@ -185,4 +191,75 @@ button:focus {
 .flex-button-container {
     display: flex;
     justify-content: space-between;
+}
+.inp { 
+    /* width: 170px;   */
+    appearance: none; 
+    border: none;
+    overflow: hidden;
+    background: url('../img/Rectangle.png') no-repeat right;  
+  }
+  .custom-button {
+      margin-bottom: 20px;
+      padding: 10px 24px;
+  }
+.button-mod {
+    padding: 15px 5px 15px 5px;
+}
+  .weather {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      
+
+  }
+  .weather-up {
+      margin: 0 auto;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+  .weather-up__date {
+      margin-right: 10px;
+  }
+.weather-up__date span{
+    display: block;
+}
+.weather-up__icon {
+    margin-right: 10px;
+}
+  .weather-up__icon img{
+      width: 50px;
+      height: 50px;
+      background-color: #6d6e74;
+  }
+  .weather-up__temp {
+      margin-right: 10px;
+      font-size: 48px;
+  }
+  .weather-up__precip {
+      margin-right: 10px;
+  }
+  .weather-down {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+
+.weather-dop {
+    width: 120px;
+    border-bottom: 1px solid #222;
+    display: flex;
+    flex-wrap: nowrap;
+    /* justify-content: space-around; */
+}
+.weather-dop p {
+    padding: 10px 0px;
+}
+.weather-dop__text {
+
+}
+.weather-dop__value {
+margin-left: auto;
 }

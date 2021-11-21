@@ -17,16 +17,24 @@
 <body>
 
     <div class="container">
-        <div class="app-container">
-          <div class="app-top-bar itm">
-            <button class="button button-small">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <h1 class="app-heading">Weather Stats</h1>
-          </div>
-          <div class="app-content itm">
+        <div class="app-container itm">
+          <button class="button button-block custom-button">
+            <select class="inp" name="type" id="">
+              <option  value="Kharkiv">Харьков</option>
+              <option  value="Kharkivs’ka Oblast’">Харьковская обл</option>
+              <option  value="Odessa">Одесса</option>
+          </select>
+             <div class="button button-small">
+               <i class="fas fa-chevron-right"></i>
+              </div>
             <button class="button button-block">
-              <span class="subtle">Period</span> <span>Last 30 days</span> <div class="button button-small"><i class="fas fa-chevron-right"></i></div>
+              <div class="button button-small">
+                <i class="fas fa-chevron-right"></i>
+               </div>
+              <span class="subtle">Period</span> 
+               <div class="button button-small">
+                 <i class="fas fa-chevron-right"></i>
+                </div>
             </button>
             <div class="button button-dial">
               
@@ -40,7 +48,7 @@
               <div class="button-dial-top"></div>
               <div class="button-dial-label">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><g><path d="M60.333,68.349V11.111C60.333,4.984,55.349,0,49.222,0c-6.126,0-11.111,4.984-11.111,11.111v57.237   c-4.15,3.323-6.667,8.397-6.667,13.874c0,9.802,7.975,17.777,17.777,17.777C59.024,100,67,92.024,67,82.223   C67,76.746,64.482,71.672,60.333,68.349z M44.778,48.363h4.444v-4.444h-4.444V35.03h4.444v-4.444h-4.444v-8.889h4.444v-4.444   h-4.444v-6.142c0-2.455,1.99-4.444,4.444-4.444c2.455,0,4.445,1.989,4.445,4.444v41.111h-8.889V48.363z"/></g></svg>
-              <span>7&deg;</span>  
+              <span class="button-dial-label__temp">7&deg;</span>  
               </div>
             </div>
             <div class="flex-button-container">
@@ -59,11 +67,7 @@
           </div>
         </div>
      
-            <select class="inp" name="type" id="">
-                <option  value="Kharkiv">Харьков</option>
-                <option  value="Kharkivs’ka Oblast’">Харьковская обл</option>
-                <option  value="Odessa">Одесса</option>
-            </select>
+            
 
             <div class="weathe-btn">
                 <button class="weathe-btn__prev"> prev </button>
@@ -73,6 +77,60 @@
                 
             </div>
 
+
+            <div class="app-container">
+              <button class="button button-block button-mod">
+               <div class="weather">
+                 <div class="weather-up">
+                  <div class="weather-up__date">24 ноябр 
+                    <span>12.00</span>
+                  </div>
+                  <div class="weather-up__icon"><img src="https://openweathermap.org/img/wn/02d@2x.png" alt=""></div>
+                  <div class="weather-up__temp">-3&deg;</div>
+                  <div class="weather-up__precip">0%</div>
+                  <div class="button button-small button-btn">
+                    <i class="fas fa-chevron-right"></i>
+                   </div>
+                 </div> 
+                 <div class="weather-down open">
+                  <div class="weather-down__l">
+                   <div class="weather-dop">
+                    <p class="weather-dop__text">Ветер</p>
+                    <p class="weather-dop__value weather-dop__wind">22</p>
+                   </div>
+                   <div class="weather-dop">
+                    <p class="weather-dop__text">Порывы</p>
+                    <p class="weather-dop__value weather-dop__gusts">22</p>
+                   </div>
+                   <div class="weather-dop">
+                    <p class="weather-dop__text">Влажность</p>
+                    <p class="weather-dop__value weather-dop__wet">22</p>
+                   </div>
+                  </div>
+                  <div class="weather-down__r">
+                   <div class="weather-dop">
+                    <p class="weather-dop__text">Облачность</p>
+                    <p class="weather-dop__value weather-dop__cloud">11</p>
+                   </div>
+                   <div class="weather-dop">
+                    <p class="weather-dop__text">Давление</p>
+                    <p class="weather-dop__value weather-dop__pressure">11</p>
+                   </div>
+                   <div class="weather-dop">
+                    <p class="weather-dop__text">Осадки</p>
+                    <p class="weather-dop__value weather-dop__drop">11</p>
+                   </div>
+                  </div>
+                </div>
+               </div>
+              </button>
+            </div>
+
+           
+
+
+
+            </div>
       </div>
 
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
