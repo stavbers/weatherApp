@@ -197,7 +197,7 @@ button:focus {
     appearance: none; 
     border: none;
     overflow: hidden;
-    background: url('../img/Rectangle.png') no-repeat right;  
+    /* background: url('../img/Rectangle.png') no-repeat right;   */
   }
   .custom-button {
       margin-bottom: 20px;
@@ -262,4 +262,13 @@ button:focus {
 }
 .weather-dop__value {
 margin-left: auto;
+}
+
+.button-mod {
+    margin-bottom: 15px;
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: 747px;
 }
