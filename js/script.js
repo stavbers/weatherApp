@@ -28,16 +28,16 @@ function setColor(temp, item) {
 }
 
 
-let weatherNow = document.querySelector('.weathe-btn__info');
-let weatherPrev = document.querySelector('.weathe-btn__prev');
-let weatherNext = document.querySelector('.weathe-btn__next');
-let clear = document.querySelector('.clear');
+let weatherTimeNow = document.querySelector('.subtle');
+let weatherNext = document.querySelector('.button-next');
+let weatherPrev = document.querySelector('.button-prev');
+let anyWeather = document.querySelector('.button-link');
 let appContainer = document.querySelector('.app-container');
 
 let itm = document.querySelectorAll('.itm > *');
-let weatherData =[];
+// let weatherData =[];
 let couner = 0;
-
+let aa = {};
 function getWeather(city) {
 let url = `http://api.openweathermap.org/data/2.5/forecast?id=${city}&appid=7501295286a1dda1338ea7f343999a0c`;
 
@@ -45,100 +45,111 @@ fetch(url)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
         console.log(data);
+        console.log(data.list.length)
         let nowTemp = (data.list[0].main.temp - 273.15).toFixed(1);
+        let arr = data.list.length;
         setColor(nowTemp, temp);
-        // temp.innerHTML = "Сейчас " + nowTemp + '&deg;';`Сейчас ${nowTemp}&deg;`
         temp.innerHTML = `Сейчас ${nowTemp}&deg;`;
-        weatherNext.addEventListener('click', next);
-        function next(){
-        if(couner !== 39){
+        // weatherNext.addEventListener('click', next);
+        weatherNext.onclick = next;
+        weatherPrev.onclick = prev;
+        // weatherPrev.addEventListener('click', prev);
+        function getWeatherDate(couner) {
             let abc = (data.list[couner].dt_txt).split(""),
-                month, 
-                day,
-                time;
-                month = abc.slice(5, 7).join(''); // получение месяца
-                day = abc.slice(8, 10).join('');
-                time = abc.slice(11, 16).join('');
-                console.log( month, day, time)
-                weatherNow.innerHTML = data.list[couner].dt_txt;
+                    month, 
+                    day,
+                    time;
+                    month = abc.slice(5, 7).join(''); // получение месяца
+                    day = abc.slice(8, 10).join('');
+                    time = abc.slice(11, 16).join('');
+                    console.log( month, day, time);
+                    weatherTimeNow.innerHTML = `${month} ${day} ${time}`;
+        };
+        function next(){
+            if(couner !== 39){
+                getWeatherDate(couner);
                 couner++;
-        } else {
-        return false;
-        }}
-
+            };
+        };
+            function prev() {
+            if(couner > 0){
+                couner--;
+                getWeatherDate(couner-1);
+            };
+            }
     })
  
     .catch(function () {
         console.log('error')
-    });
-    
+    }); 
 }
 
-clear.addEventListener('click', ()=> {
-    itm.forEach((item) => {
-        item.classList.add('hide');
+
+function clearContainer(){
+    anyWeather.addEventListener('click', ()=> {
+        itm.forEach((item) => {
+            item.classList.add('hide');
+        });
+        appContainer.classList.add('scroll')
+        for(let index = 0; index < 40; index++) {
+            createBlock();
+        }
+        hideWeatherContent();
+        // createBlock();
+        // openWeatherContent(0);
     });
-    appContainer.classList.add('scroll')
-    for(let index = 0; index < 40; index++) {
-        createBlock();
-    }
-    hideWeatherContent();
-    // createBlock();
-    // openWeatherContent(0);
-});
+}clearContainer()
 
 
-
-// data[index].weather[0].icon
     function createBlock(){
         let infoDiv = document.createElement('div');
         infoDiv.classList.add('button');
         infoDiv.innerHTML =  
-        '<button class="button button-block button-mod">\n' +
-               '<div class="weather">\n' +
-                 '<div class="weather-up">\n' +
-                  '<div class="weather-up__date">24 ноябр \n' +
-                    '<span>12.00</span>\n' +
-                  '</div>\n' +
-                  '<div class="weather-up__icon"><img src="" alt=""></div>\n' +
-                  '<div class="weather-up__temp">-3&deg;</div>\n' +
-                  '<div class="weather-up__precip">0%</div>\n' +
-                  '<div class="button button-small button-btn">\n' +
-                  '<i class="fas fa-chevron-right"></i>\n' +
-                  '</div>\n' +
-                  '</div>\n' +
-                  '<div class="weather-down">\n' +
-                  '<div class="weather-down__l">\n' +
-                   '<div class="weather-dop">\n' +
-                    '<p class="weather-dop__text">Ветер</p>\n' +
-                    '<p class="weather-dop__value weather-dop__wind">22</p>\n' +
-                   '</div>\n' +
-                   '<div class="weather-dop">\n' +
-                    '<p class="weather-dop__text">Порывы</p>\n' +
-                    '<p class="weather-dop__value weather-dop__gusts">22</p>\n' +
-                   '</div>\n' +
-                   '<div class="weather-dop">\n' +
-                    '<p class="weather-dop__text">Влажность</p>\n' +
-                    '<p class="weather-dop__value weather-dop__wet">22</p>\n' +
-                   '</div>\n' +
-                  '</div>\n' +
-                  '<div class="weather-down__r">\n' +
-                   '<div class="weather-dop">\n' +
-                    '<p class="weather-dop__text">Облачность</p>\n' +
-                    '<p class="weather-dop__value weather-dop__cloud">11</p>\n' +
-                   '</div>\n' +
-                   '<div class="weather-dop">\n' +
-                    '<p class="weather-dop__text">Давление</p>\n' +
-                    '<p class="weather-dop__value weather-dop__pressure">11</p>\n' +
-                   '</div>\n' +
-                   '<div class="weather-dop">\n' +
-                   '<p class="weather-dop__text">Осадки</p>\n' +
-                   '<p class="weather-dop__value weather-dop__drop">11</p>\n' +
-                   '</div>\n' +
-                   '</div>\n' +
-                   '</div>\n' +
-                   '</div>\n' +
-                   '</button>\n'
+        `<button class="button button-block button-mod">\n
+               <div class="weather">\n
+                 <div class="weather-up">\n
+                  <div class="weather-up__date">24 ноябр \n
+                    <span>12.00</span>\n
+                  </div>\n
+                  <div class="weather-up__icon"><img src="" alt=""></div>\n
+                  <div class="weather-up__temp">-3&deg;</div>\n
+                  <div class="weather-up__precip">0%</div>\n
+                  <div class="button button-small button-btn">\n
+                  <i class="fas fa-chevron-right"></i>\n
+                  </div>\n
+                  </div>\n
+                  <div class="weather-down">\n
+                  <div class="weather-down__l">\n
+                   <div class="weather-dop">\n
+                    <p class="weather-dop__text">Ветер</p>\n
+                    <p class="weather-dop__value weather-dop__wind">22</p>\n
+                   </div>\n
+                   <div class="weather-dop">\n
+                    <p class="weather-dop__text">Порывы</p>\n
+                    <p class="weather-dop__value weather-dop__gusts">22</p>\n
+                   </div>\n
+                   <div class="weather-dop">\n
+                    <p class="weather-dop__text">Влажность</p>\n
+                    <p class="weather-dop__value weather-dop__wet">22</p>\n
+                   </div>\n
+                  </div>\n
+                  <div class="weather-down__r">\n
+                   <div class="weather-dop">\n
+                    <p class="weather-dop__text">Облачность</p>\n
+                    <p class="weather-dop__value weather-dop__cloud">11</p>\n
+                   </div>\n
+                   <div class="weather-dop">\n
+                    <p class="weather-dop__text">Давление</p>\n
+                    <p class="weather-dop__value weather-dop__pressure">11</p>\n
+                   </div>\n
+                   <div class="weather-dop">\n
+                   <p class="weather-dop__text">Осадки</p>\n
+                   <p class="weather-dop__value weather-dop__drop">11</p>\n
+                   </div>\n
+                   </div>\n
+                   </div>\n
+                   </div>\n
+                   </button>\n`
                    appContainer.append(infoDiv);
     };
 
