@@ -1,7 +1,7 @@
 let temp = document.querySelector('.button-dial-label__temp');
 let select = document.querySelector('.inp');
 let selectOpt;
-let city = town["Kharkivs’ka Oblast’"];
+// let city = town["Kharkivs’ka Oblast’"];
 
 
 
@@ -24,6 +24,8 @@ function ba(b){
 function setColor(temp, item) {
     if(temp > 0){
         item.style.color = 'red';
+}else {
+    item.style.color = '#067cf8'; 
 }
 }
 
@@ -35,27 +37,22 @@ let anyWeather = document.querySelector('.button-link');
 let appContainer = document.querySelector('.app-container');
 
 let itm = document.querySelectorAll('.itm > *');
-// let weatherData =[];
 let couner = 0;
-let aa = {};
+let WindDeg = '';
 function getWeather(city) {
 let url = `http://api.openweathermap.org/data/2.5/forecast?id=${city}&appid=7501295286a1dda1338ea7f343999a0c`;
 
 fetch(url)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
-        console.log(data);
-        console.log(data.list.length)
+        let weatherArr = data.list;
         let nowTemp = (data.list[0].main.temp - 273.15).toFixed(1);
-        let arr = data.list.length;
-        setColor(nowTemp, temp);
         temp.innerHTML = `Сейчас ${nowTemp}&deg;`;
-        // weatherNext.addEventListener('click', next);
-        weatherNext.onclick = next;
-        weatherPrev.onclick = prev;
-        // weatherPrev.addEventListener('click', prev);
+        console.log(data);
+        // console.log(weatherArr);
         function getWeatherDate(couner) {
-            let abc = (data.list[couner].dt_txt).split(""),
+            if(couner >= 0){ 
+                let abc = (data.list[couner].dt_txt).split(""),
                     month, 
                     day,
                     time;
@@ -65,6 +62,7 @@ fetch(url)
                     console.log( month, day, time);
                     weatherTimeNow.innerHTML = `${month} ${day} ${time}`;
         };
+    }
         function next(){
             if(couner !== 39){
                 getWeatherDate(couner);
@@ -77,6 +75,128 @@ fetch(url)
                 getWeatherDate(couner-1);
             };
             }
+            function displayFullWeather(arr) {
+                // console.log(arr.length);
+                for(let i = 0; i < arr.length; i++){
+                    createBlock(i);
+                    changeWindDeg(weatherArr[i].wind.deg);
+                    // console.log(weatherArr[i].wind.deg)
+                }
+            }
+            // changeWindDeg(weatherArr[i].wind.deg);
+            // changeWindDeg(24);
+            // changeWindDeg(257);
+            function changeWindDeg(i){
+                
+                // if(11.25<= i <= 348.75){
+                if(i > 348.75){
+                    WindDeg = 'N';
+                }else if(i >= 11.25 && i <= 33.75) {
+                    WindDeg = 'NNE';
+                }else if(i >= 33.75 && i <= 56.25) {
+                    WindDeg = 'NE';
+                }else if(i >= 56.25 && i <= 78.75) {
+                    WindDeg = 'ENE';
+                }else if(i >= 78.75 && i <= 101.25) {
+                    WindDeg = 'ESE';
+                }else if(i >= 123.75 && i <= 146.25) {
+                    WindDeg = 'SE';
+                }else if(i >= 146.25 && i <= 168.75) {
+                    WindDeg = 'SSE';
+                }else if(i >= 168.75 && i <= 191.25) {
+                    WindDeg = 'S';
+                }else if(i >= 191.25 && i <= 213.75) {
+                    WindDeg = 'SSW';
+                }else if(i >= 213.75 && i <= 236.25) {
+                    WindDeg = 'SW';
+                }else if(i >= 236.25 && i <= 258.75) {
+                    WindDeg = 'WSW';
+                }else if(i >= 258.75 && i <= 281.25) {
+                    WindDeg = 'W';
+                }else if(i >= 281.25 && i <= 303.75) {
+                    WindDeg = 'WNW';
+                }else if(i >= 303.75 && i <= 326.25) {
+                    WindDeg = 'NNW';
+                }else if(i >= 326.25 && i <= 348.74) {
+                    WindDeg = 'NNW';
+                }else {
+                    WindDeg = 'NNW';
+                }
+                console.log(i)
+            }
+            // ${weatherArr[0].weather[0].icon}
+            // ${weatherArr[0].wind.speed}
+            // ${weatherArr[0].wind.deg}
+            function createBlock(i){
+                let infoDiv = document.createElement('div');
+                infoDiv.classList.add('button');
+                infoDiv.innerHTML =  
+                `<button class="button button-block button-mod">\n
+                       <div class="weather">\n
+                         <div class="weather-up">\n
+                          <div class="weather-up__date">24 ноябр \n
+                            <span>12.00</span>\n
+                          </div>\n
+                          <div class="weather-up__icon"><img src="https://openweathermap.org/img/wn/${weatherArr[i].weather[0].icon}@2x.png" alt=""></div>\n
+                          <div class="weather-up__temp">-3&deg;</div>\n
+                          <div class="weather-up__precip">${weatherArr[0].weather[0].id}0%</div>\n
+                          <div class="button button-small button-btn">\n
+                          <i class="fas fa-chevron-right"></i>\n
+                          </div>\n
+                          </div>\n
+                          <div class="weather-down">\n
+                          <div class="weather-down__l">\n
+                           <div class="weather-dop">\n
+                            <p class="weather-dop__text">Ветер</p>\n
+                            <p class="weather-dop__value weather-dop__wind">${weatherArr[i].wind.speed}${WindDeg}</p>\n
+                           </div>\n
+                           <div class="weather-dop">\n
+                            <p class="weather-dop__text">Порывы</p>\n
+                            <p class="weather-dop__value weather-dop__gusts">${weatherArr[i].wind.gust}</p>\n
+                           </div>\n
+                           <div class="weather-dop">\n
+                            <p class="weather-dop__text">Влажность</p>\n
+                            <p class="weather-dop__value weather-dop__wet">22</p>\n
+                           </div>\n
+                          </div>\n
+                          <div class="weather-down__r">\n
+                           <div class="weather-dop">\n
+                            <p class="weather-dop__text">Облачность</p>\n
+                            <p class="weather-dop__value weather-dop__cloud">11</p>\n
+                           </div>\n
+                           <div class="weather-dop">\n
+                            <p class="weather-dop__text">Давление</p>\n
+                            <p class="weather-dop__value weather-dop__pressure">11</p>\n
+                           </div>\n
+                           <div class="weather-dop">\n
+                           <p class="weather-dop__text">Осадки</p>\n
+                           <p class="weather-dop__value weather-dop__drop">11</p>\n
+                           </div>\n
+                           </div>\n
+                           </div>\n
+                           </div>\n
+                           </button>\n`
+                           appContainer.append(infoDiv);
+            };
+
+            function clearContainer(){
+                anyWeather.addEventListener('click', ()=> {
+                    itm.forEach((item) => {
+                        item.classList.add('hide');
+                    });
+                    appContainer.classList.add('scroll')
+                    // for(let index = 0; index < 40; index++) {
+                    //     createBlock();
+                    // }
+                    displayFullWeather(weatherArr)
+                    hideWeatherContent();
+                });
+            }
+
+            weatherNext.onclick = next;
+            weatherPrev.onclick = prev;
+            setColor(nowTemp, temp);
+            clearContainer()
     })
  
     .catch(function () {
@@ -85,73 +205,10 @@ fetch(url)
 }
 
 
-function clearContainer(){
-    anyWeather.addEventListener('click', ()=> {
-        itm.forEach((item) => {
-            item.classList.add('hide');
-        });
-        appContainer.classList.add('scroll')
-        for(let index = 0; index < 40; index++) {
-            createBlock();
-        }
-        hideWeatherContent();
-        // createBlock();
-        // openWeatherContent(0);
-    });
-}clearContainer()
 
 
-    function createBlock(){
-        let infoDiv = document.createElement('div');
-        infoDiv.classList.add('button');
-        infoDiv.innerHTML =  
-        `<button class="button button-block button-mod">\n
-               <div class="weather">\n
-                 <div class="weather-up">\n
-                  <div class="weather-up__date">24 ноябр \n
-                    <span>12.00</span>\n
-                  </div>\n
-                  <div class="weather-up__icon"><img src="" alt=""></div>\n
-                  <div class="weather-up__temp">-3&deg;</div>\n
-                  <div class="weather-up__precip">0%</div>\n
-                  <div class="button button-small button-btn">\n
-                  <i class="fas fa-chevron-right"></i>\n
-                  </div>\n
-                  </div>\n
-                  <div class="weather-down">\n
-                  <div class="weather-down__l">\n
-                   <div class="weather-dop">\n
-                    <p class="weather-dop__text">Ветер</p>\n
-                    <p class="weather-dop__value weather-dop__wind">22</p>\n
-                   </div>\n
-                   <div class="weather-dop">\n
-                    <p class="weather-dop__text">Порывы</p>\n
-                    <p class="weather-dop__value weather-dop__gusts">22</p>\n
-                   </div>\n
-                   <div class="weather-dop">\n
-                    <p class="weather-dop__text">Влажность</p>\n
-                    <p class="weather-dop__value weather-dop__wet">22</p>\n
-                   </div>\n
-                  </div>\n
-                  <div class="weather-down__r">\n
-                   <div class="weather-dop">\n
-                    <p class="weather-dop__text">Облачность</p>\n
-                    <p class="weather-dop__value weather-dop__cloud">11</p>\n
-                   </div>\n
-                   <div class="weather-dop">\n
-                    <p class="weather-dop__text">Давление</p>\n
-                    <p class="weather-dop__value weather-dop__pressure">11</p>\n
-                   </div>\n
-                   <div class="weather-dop">\n
-                   <p class="weather-dop__text">Осадки</p>\n
-                   <p class="weather-dop__value weather-dop__drop">11</p>\n
-                   </div>\n
-                   </div>\n
-                   </div>\n
-                   </div>\n
-                   </button>\n`
-                   appContainer.append(infoDiv);
-    };
+
+   
 
     function hideWeatherContent() {
         document.querySelectorAll('.weather-down').forEach(function(item) {
@@ -181,7 +238,7 @@ function clearContainer(){
 
 
 
-
+    // https://openweathermap.org/img/wn/02d@2x.png
 
 
     // fetch(url)
